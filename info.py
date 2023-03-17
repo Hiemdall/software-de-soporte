@@ -2,7 +2,7 @@ import requests # Lib para enviar la solicitud al servidor
 import platform # Lib para el serial
 import os # Lib para el modelo
 import datetime # Lib para la fecha y la hora
-
+import subprocess # Lib para el nombre del fabricante
 # Encabeza para la información
 print ("Soporte Técnico Integeratic  \n")
 
@@ -18,6 +18,7 @@ if platform.system() == "Windows":
     c = os.popen("wmic bios get serialnumber").read()
     V_serial = c.split("\n")[2].strip()
     print("Serial: ", V_serial)
+
 # Modelo    
     a = os.popen("wmic csproduct get name").read()
     V_modelo = a.split("\n")[2].strip()
@@ -25,6 +26,11 @@ if platform.system() == "Windows":
 else:
     print("Este código solo funciona en sistemas operativos Windows")
 
+# Fabricante
+result = subprocess.run(['wmic', 'csproduct', 'get', 'vendor'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+fabricante = result.stdout.decode().strip().split("\n")[1]
+
+print("Fabricante: ", fabricante)
 
 # Prueba
 # Variables con la información que quieres enviar
@@ -44,7 +50,8 @@ data = {
     "fecha": fecha_actual,
     "hora" : hora_actual,
     "serial": V_serial,
-    "modelo": V_modelo
+    "modelo": V_modelo,
+    "fabricante": fabricante
     
 }
 

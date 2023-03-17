@@ -8,15 +8,15 @@ include("conexion.php");
 
 $fecha = $_POST['fecha'];
 $hora = $_POST['hora'];
-
 $serial = $_POST['serial'];
 $modelo = $_POST['modelo'];
+$fabricante = $_POST['fabricante'];
 
 
 
 // Insertar los datos en la base de datos
-$sql = "INSERT INTO datos (fecha, hora, serial, modelo)
-        VALUES ('$fecha', '$hora', '$serial', '$modelo')";
+$sql = "INSERT INTO datos (fecha, hora, serial, modelo, fabricante)
+        VALUES ('$fecha', '$hora', '$serial', '$modelo', '$fabricante')";
 
 if ($conn->query($sql) === TRUE) {
   echo "Los datos se insertaron correctamente.";
@@ -31,6 +31,7 @@ echo "Fecha Actual: " . $fecha;
 echo "Hora Actual: " . $hora;
 echo "Serial: " . $serial;
 echo "Modelo: " . $modelo;
+echo "Fabricante: " . $fabricante;
 
 
 ?>

@@ -6,15 +6,17 @@ include("conexion.php");
 // Imprimir el valor del serial recibido
 //echo "El valor del serial es: " . $serial;
 
+$fecha = $_POST['fecha'];
+$hora = $_POST['hora'];
 
-$cedula = $_POST['serial'];
+$serial = $_POST['serial'];
 $modelo = $_POST['modelo'];
 
 
 
 // Insertar los datos en la base de datos
-$sql = "INSERT INTO datos (serial, modelo)
-        VALUES ('$cedula', '$modelo')";
+$sql = "INSERT INTO datos (fecha, hora, serial, modelo)
+        VALUES ('$fecha', '$hora', '$serial', '$modelo')";
 
 if ($conn->query($sql) === TRUE) {
   echo "Los datos se insertaron correctamente.";
@@ -25,7 +27,11 @@ if ($conn->query($sql) === TRUE) {
 
 mysqli_close($conn);
 
-echo "El valor del serial es: " . $cedula;
+echo "Fecha Actual: " . $fecha;
+echo "Hora Actual: " . $hora;
+echo "Serial: " . $serial;
+echo "Modelo: " . $modelo;
+
 
 ?>
 

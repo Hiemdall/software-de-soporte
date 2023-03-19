@@ -32,12 +32,6 @@ fabricante = result.stdout.decode().strip().split("\n")[1]
 
 print("Fabricante: ", fabricante)
 
-# Prueba
-# Variables con la información que quieres enviar
-# cedula = "721994011"
-
-# URL del formulario de PHP
-# url = "https://tuformulario.com/procesar_datos.php"
 
 # Servidor
 # url = "https://sys.integratic.com.co/certificado/proceso.php"

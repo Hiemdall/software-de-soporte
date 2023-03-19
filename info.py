@@ -4,7 +4,7 @@ import os # Lib para el modelo
 import datetime # Lib para la fecha y la hora
 import subprocess # Lib para el nombre del fabricante
 # Encabeza para la información
-print ("Soporte Técnico Integeratic  \n")
+print ("Soporte Técnico Integeratic SAS  \n")
 
 # Fecha  y hora actual del registro
 fecha_actual = datetime.datetime.now().strftime("%d-%m-%Y")

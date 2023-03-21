@@ -5,6 +5,7 @@ import datetime # Lib para la fecha y la hora
 import subprocess # Lib para el nombre del fabricante y el procesador
 import socket # Lib para el nombre del equipo
 import psutil # Lib para identificar la RAM
+import wmi # Lib para identificar los slot de la RAM
 
 # Encabeza para la información
 print ("Soporte Técnico Integeratic SAS  \n")
@@ -53,6 +54,14 @@ ram_capacity = get_ram_space()
 formatted_ram_capacity = round(ram_capacity, 1)
 print("Memoria RAM: {:.2f} GB".format(get_ram_space()))
 
+# Slot de memoria ram
+# Crea una instancia del objeto WMI para acceder a la información del hardware
+w = wmi.WMI()
+# Obtiene el número total de ranuras de memoria RAM
+slots = w.Win32_PhysicalMemoryArray()[0].MemoryDevices
+# Imprime el número total de ranuras
+print("Ranuras de memoria RAM:", slots)
+
 
 # Servidor
 # url = "https://sys.integratic.com.co/certificado/proceso.php"
@@ -69,7 +78,8 @@ data = {
     "fabricante": fabricante,
     "nom_equipo" : nom_equipo,
     "processor_model" : processor_model,
-    "ram" : formatted_ram_capacity
+    "ram" : formatted_ram_capacity,
+    "slots" : slots
 }
 
 # Enviar la solicitud POST

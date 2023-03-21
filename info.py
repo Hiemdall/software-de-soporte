@@ -3,6 +3,9 @@ import platform # Lib para el serial
 import os # Lib para el modelo
 import datetime # Lib para la fecha y la hora
 import subprocess # Lib para el nombre del fabricante
+import socket # Lib para el nombre del equipo
+
+
 # Encabeza para la información
 print ("Soporte Técnico Integeratic SAS  \n")
 
@@ -29,9 +32,11 @@ else:
 # Fabricante
 result = subprocess.run(['wmic', 'csproduct', 'get', 'vendor'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 fabricante = result.stdout.decode().strip().split("\n")[1]
-
 print("Fabricante: ", fabricante)
 
+# Nombre del equipo
+nom_equipo = socket.gethostname()
+print("Nombre del Equipo : ", nom_equipo)
 
 # Servidor
 # url = "https://sys.integratic.com.co/certificado/proceso.php"
@@ -45,7 +50,8 @@ data = {
     "hora" : hora_actual,
     "serial": V_serial,
     "modelo": V_modelo,
-    "fabricante": fabricante
+    "fabricante": fabricante,
+    "nom_equipo" : nom_equipo
     
 }
 

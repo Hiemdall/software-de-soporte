@@ -11,12 +11,13 @@ $hora = $_POST['hora'];
 $serial = $_POST['serial'];
 $modelo = $_POST['modelo'];
 $fabricante = $_POST['fabricante'];
+$nom_equipo = $_POST['nom_equipo'];
 
 
 
 // Insertar los datos en la base de datos
-$sql = "INSERT INTO datos (fecha, hora, serial, modelo, fabricante)
-        VALUES ('$fecha', '$hora', '$serial', '$modelo', '$fabricante')";
+$sql = "INSERT INTO datos (fecha, hora, serial, modelo, fabricante, nom_equipo)
+        VALUES ('$fecha', '$hora', '$serial', '$modelo', '$fabricante', '$nom_equipo')";
 
 if ($conn->query($sql) === TRUE) {
   echo "Los datos se insertaron correctamente.";
@@ -32,6 +33,7 @@ echo "Hora Actual: " . $hora;
 echo "Serial: " . $serial;
 echo "Modelo: " . $modelo;
 echo "Fabricante: " . $fabricante;
+echo "Nombre del equipo: " . $nom_equipo;
 
 
 ?>

@@ -4,6 +4,7 @@ import os # Lib para el modelo
 import datetime # Lib para la fecha y la hora
 import subprocess # Lib para el nombre del fabricante y el procesador
 import socket # Lib para el nombre del equipo
+import psutil # Lib para identificar la RAM
 
 # Encabeza para la información
 print ("Soporte Técnico Integeratic SAS  \n")
@@ -43,6 +44,16 @@ processor_model = result.stdout.strip().splitlines()[2].decode()
 # print(f"Modelo de procesador: {processor_model}")
 print("Procesador: ",processor_model)
 
+# Memoria RAM
+def get_ram_space():
+    ram = psutil.virtual_memory()
+    total = ram.total / (1024 ** 3)
+    return total
+ram_capacity = get_ram_space()
+formatted_ram_capacity = round(ram_capacity, 1)
+print("Memoria RAM: {:.2f} GB".format(get_ram_space()))
+
+
 # Servidor
 # url = "https://sys.integratic.com.co/certificado/proceso.php"
 # Local
@@ -57,7 +68,8 @@ data = {
     "modelo": V_modelo,
     "fabricante": fabricante,
     "nom_equipo" : nom_equipo,
-    "processor_model" : processor_model
+    "processor_model" : processor_model,
+    "ram" : formatted_ram_capacity
 }
 
 # Enviar la solicitud POST

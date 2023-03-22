@@ -64,41 +64,6 @@ slots = w.Win32_PhysicalMemoryArray()[0].MemoryDevices
 print("Ranuras de memoria RAM:", slots)
 
 
-# Disco
-# Obtener la información del disco
-disks = psutil.disk_partitions()
-disk_info = []
-print("Discos :")
-for disk in disks:
-    try:
-        disk_usage = psutil.disk_usage(disk.mountpoint)
-        total = disk_usage.total / (1024 ** 3)
-        disk_info.append({"mountpoint": disk.mountpoint, "capacity": "{:.2f} GB".format(total)})
-    except PermissionError:
-        # Ignorar errores de permisos y continuar con el siguiente disco
-        continue
-    
-    
-# Imprimir los valores de mountpoint y capacity para cada disco
-for disk in disk_info:
-    print("Unidad:", disk["mountpoint"])
-    print("Capacidad:", disk["capacity"])
-
-"""
-# Crear una lista de diccionarios que contengan la información de cada disco
-disk_list = []
-for disk in disk_info:
-    disk_data = {"unidad": disk["mountpoint"], "capacidad": disk["capacity"]}
-    disk_list.append(disk_data)
-"""
-
-
-disk_list = [{"unidad": "C:", "capacidad": "100GB"}, {"unidad": "D:", "capacidad": "500GB"}]
-print(type(disk_list))
-for disco in disk_list:
-    print(disco['unidad'])
-    print(disco['capacidad'])
-
 
 # Servidor
 # url = "https://sys.integratic.com.co/certificado/proceso.php"
@@ -117,7 +82,7 @@ data = {
     "processor_model" : processor_model,
     "ram" : formatted_ram_capacity,
     "slots" : slots,
-    "discos": disk_list
+    
 }
 
 headers = {'Content-Type': 'application/json'}

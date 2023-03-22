@@ -28,33 +28,6 @@ if ($conn->query($sql) === TRUE) {
 }
 
 
-#var_dump($_POST);
-var_dump($_POST['discos'])
-
-// Procesar los discos enviados desde Python
-if(!is_array($_POST['discos'])) {
-  echo "Error: los discos enviados no tienen el formato esperado";
-  exit();
-} else {
-  foreach($_POST['discos'] as $disco) {
-    if (!is_array($disco) || !isset($disco['unidad']) || !isset($disco['capacidad'])) {
-      echo "Error: uno o más discos enviados no tienen el formato esperado.";
-      continue;
-    }
-    $unidad = $disco['unidad'];
-    $capacidad = $disco['capacidad'];
-    
-    // Insertar los datos en la tabla "disco"
-    $sql = "INSERT INTO disco (puntero, capacidad, serial_id) VALUES ('$unidad', '$capacidad', '$datos_id')";
-    if ($conn->query($sql) === TRUE) {
-      echo "Datos insertados correctamente en la tabla 'disco'.<br>";
-    } else {
-      echo "Error al insertar los datos en la tabla 'disco': " . $conn->error."<br>";
-    }
-  }
-}
-
-
 mysqli_close($conn);
 
 echo "Fecha Actual: " . $fecha;

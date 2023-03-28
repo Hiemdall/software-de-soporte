@@ -1,10 +1,5 @@
 <?php
 include("conexion.php");
-// Acceder a los datos enviados por POST
-//$serial = $_POST['serial'];
-
-// Imprimir el valor del serial recibido
-//echo "El valor del serial es: " . $serial;
 
 $fecha = $_POST['fecha'];
 $hora = $_POST['hora'];
@@ -18,7 +13,7 @@ $slots = $_POST['slots'];
 
 
 // Insertar los datos en la base de datos
-$sql = "INSERT INTO datos (fecha, hora, serial, modelo, fabricante, nom_equipo, nom_procesador, ram, slot)
+$sql = "INSERT INTO info (fecha, hora, serial, modelo, fabricante, nom_equipo, nom_procesador, ram, slot)
         VALUES ('$fecha', '$hora', '$serial', '$modelo', '$fabricante', '$nom_equipo', '$processor_model', '$formatted_ram_capacity', '$slots')";
 
 if ($conn->query($sql) === TRUE) {

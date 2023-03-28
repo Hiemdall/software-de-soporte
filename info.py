@@ -66,9 +66,9 @@ print("Ranuras de memoria RAM:", slots)
 
 
 # Servidor
-# url = "https://sys.integratic.com.co/certificado/proceso.php"
+url = "https://sys.integratic.com.co/certificado/proceso.php"
 # Local
-url = "http://localhost/Proyectos_Integratic/Python-PHP-Soporte/proceso.php"
+# url = "http://localhost/Proyectos_Integratic/Python-PHP-Soporte/proceso.php"
 
 
 # Datos que quieres enviar

@@ -10,30 +10,39 @@ $nom_equipo = $_POST['nom_equipo'];
 $processor_model = $_POST['processor_model'];
 $formatted_ram_capacity = $_POST['ram'];
 $slots = $_POST['slots'];
+$discos = json_decode($_POST['discos'], true);
+                              
 
-
+// Tabla info
 // Insertar los datos en la base de datos
-$sql = "INSERT INTO info (fecha, hora, serial, modelo, fabricante, nom_equipo, nom_procesador, ram, slot)
+$sql = "INSERT INTO datos (fecha, hora, serial, modelo, fabricante, nom_equipo, nom_procesador, ram, slot)
         VALUES ('$fecha', '$hora', '$serial', '$modelo', '$fabricante', '$nom_equipo', '$processor_model', '$formatted_ram_capacity', '$slots')";
 
 if ($conn->query($sql) === TRUE) {
-  echo "Los datos se insertaron correctamente.";
+  echo "";
 } else {
   echo "Error al insertar los datos: " . $conn->error;
 }
 
 
+//Tabla disco
+// Recorremos la lista de discos e insertamos cada uno en la base de datos
+foreach ($discos as $disco) {
+  $unidad = mysqli_real_escape_string($conn, $disco['mountpoint']);
+  $capacidad = mysqli_real_escape_string($conn, $disco['capacity']);
+  
+  $sql = "INSERT INTO disco (puntero, capacidad, serial_id) VALUES ('$unidad', '$capacidad', '$serial')";
+  if ($conn->query($sql) === TRUE) {
+    echo "";
+  } else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+  }
+}
+
+
 mysqli_close($conn);
 
-echo "Fecha Actual: " . $fecha;
-echo "Hora Actual: " . $hora;
-echo "Serial: " . $serial;
-echo "Modelo: " . $modelo;
-echo "Fabricante: " . $fabricante;
-echo "Nombre del equipo: " . $nom_equipo;
-echo "Procesador: " . $processor_model;
-echo "RAM: " . $formatted_ram_capacity;
-echo "slots: " . $slots;
+echo "Datos guardados correctamente";
 
 ?>
 

@@ -1,5 +1,5 @@
 import requests # Lib para enviar la solicitud al servidor
-import json
+import json # Lib para trabajar con el formato JSON
 import platform # Lib para el serial
 import os # Lib para el modelo
 import datetime # Lib para la fecha y la hora
@@ -63,13 +63,37 @@ slots = w.Win32_PhysicalMemoryArray()[0].MemoryDevices
 # Imprime el número total de ranuras
 print("Ranuras de memoria RAM:", slots)
 
+# Discos
+# Obtener la información del disco
+disks = psutil.disk_partitions()
+disk_info = []
+print("Discos :")
+for disk in disks:
+    try:
+        disk_usage = psutil.disk_usage(disk.mountpoint)
+        total = disk_usage.total / (1024 ** 3)
+        disk_info.append({"mountpoint": disk.mountpoint, "capacity": "{:.2f} GB".format(total)})
+    except PermissionError:
+        # Ignorar errores de permisos y continuar con el siguiente disco
+        continue
+    
+    
+# Imprimir los valores de mountpoint y capacity para cada disco
+for disk in disk_info:
+    print("Unidad:", disk["mountpoint"])
+    print("Capacidad:", disk["capacity"])
 
+# Convertimos la lista a formato JSON
+discos_json = json.dumps(disk_info)
+
+#--------------------------------------------------------------------------------------------------------------------------------
 
 # Servidor
-url = "https://sys.integratic.com.co/certificado/proceso.php"
+# url = "https://sys.integratic.com.co/certificado/proceso.php"
 # Local
-# url = "http://localhost/Proyectos_Integratic/Python-PHP-Soporte/proceso.php"
+url = "http://localhost/Proyectos_Integratic/Python-PHP-Soporte/proceso.php"
 
+#--------------------------------------------------------------------------------------------------------------------------------
 
 # Datos que quieres enviar
 data = {
@@ -82,10 +106,11 @@ data = {
     "processor_model" : processor_model,
     "ram" : formatted_ram_capacity,
     "slots" : slots,
+    "discos": discos_json
     
 }
 
-headers = {'Content-Type': 'application/json'}
+
 # Enviar la solicitud POST
 response = requests.post(url, data=data)
 
